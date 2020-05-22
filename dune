@@ -1,0 +1,7 @@
+(executable
+ (name topstart)
+ (public_name remove-sharpuse)
+ (libraries
+  compiler-libs
+  compiler-libs.toplevel)
+ (modes byte))
