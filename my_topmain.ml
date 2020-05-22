@@ -22,15 +22,15 @@ let usage = "Usage: ocaml <options> <object-files> [script-file [arguments]]\n\
 let preload_objects = ref []
 
 let prepare ppf =
-  Toploop.set_paths ();
+  My_toploop.set_paths ();
   try
     let res =
       let objects =
         List.rev (!preload_objects @ !first_objfiles)
       in
-      List.for_all (Topdirs.load_file ppf) objects
+      List.for_all (My_topdirs.load_file ppf) objects
     in
-    !Toploop.toplevel_startup_hook ();
+    !My_toploop.toplevel_startup_hook ();
     res
   with x ->
     try Location.report_exception ppf x; false
@@ -49,7 +49,7 @@ let file_argument name =
                               (Array.length Sys.argv - !Arg.current)
       in
       Compenv.readenv ppf Before_link;
-      if prepare ppf && Toploop.run_script ppf name newargs
+      if prepare ppf && My_toploop.run_script ppf name newargs
       then exit 0
       else exit 2
     end
@@ -127,4 +127,4 @@ let main () =
   Arg.parse Options.list file_argument usage;
   Compenv.readenv ppf Before_link;
   if not (prepare ppf) then exit 2;
-  Toploop.loop Format.std_formatter
+  My_toploop.loop Format.std_formatter

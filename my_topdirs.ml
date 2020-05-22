@@ -21,7 +21,7 @@ open Longident
 open Types
 open Cmo_format
 open Trace
-open Toploop
+open My_toploop
 
 (* The standard output formatter *)
 let std_out = std_formatter
@@ -237,8 +237,8 @@ let load_file = load_file false
 
 (* Load commands from a file *)
 
-let dir_use ppf name = ignore(Toploop.use_file ppf name)
-let dir_mod_use ppf name = ignore(Toploop.mod_use_file ppf name)
+let dir_use ppf name = ignore(My_toploop.use_file ppf name)
+let dir_mod_use ppf name = ignore(My_toploop.mod_use_file ppf name)
 
 let _ = add_directive "use" (Directive_string (dir_use std_out))
     {
@@ -495,7 +495,7 @@ let trim_signature = function
   | mty -> mty
 
 let show_prim to_sig ppf lid =
-  let env = !Toploop.toplevel_env in
+  let env = !My_toploop.toplevel_env in
   let loc = Location.none in
   try
     let s =

@@ -246,6 +246,7 @@ let add_directive name dir_fun dir_info =
 let execute_phrase print_outcome ppf phr =
   match phr with
   | Ptop_def sstr ->
+      if true then true else
       let oldenv = !toplevel_env in
       Typecore.reset_delayed_checks ();
       let (str, sg, newenv) = Typemod.type_toplevel_phrase oldenv sstr in
@@ -370,7 +371,10 @@ let preprocess_phrase ppf phr =
     | phr -> phr
   in
   if !Clflags.dump_parsetree then Printast.top_phrase ppf phr;
-  if !Clflags.dump_source then Pprintast.top_phrase ppf phr;
+  if true then begin match phr with
+                   Ptop_def _ -> Pprintast2.top_phrase ppf phr
+                 | Ptop_dir _ -> ()
+               end;
   phr
 
 let use_file ppf wrap_mod name =
@@ -464,7 +468,7 @@ let refill_lexbuf buffer len =
    can call directives from Topdirs. *)
 
 let _ =
-  if !Sys.interactive then (* PR#6108 *)
+  if false (* !Sys.interactive *) then (* PR#6108 *)
     invalid_arg "The ocamltoplevel.cma library from compiler-libs \
                  cannot be loaded inside the OCaml toplevel";
   Clflags.debug := true;
