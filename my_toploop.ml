@@ -392,7 +392,10 @@ let preprocess_phrase ppf phr =
     | phr -> phr
   in
   if !Clflags.dump_parsetree then Printast.top_phrase ppf phr;
-  if !Clflags.dump_source then Pprintast.top_phrase ppf phr;
+  if !Clflags.dump_source then begin match phr with
+                                 Ptop_def _ -> Pprintast.top_phrase ppf phr
+                               | Ptop_dir _ -> ()
+                               end;
   phr
 
 let use_channel ppf ~wrap_in_module ic name filename =
