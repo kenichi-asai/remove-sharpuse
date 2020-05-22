@@ -393,7 +393,7 @@ let preprocess_phrase ppf phr =
   in
   if !Clflags.dump_parsetree then Printast.top_phrase ppf phr;
   if !Clflags.dump_source then begin match phr with
-                                 Ptop_def _ -> Pprintast.top_phrase ppf phr
+                                 Ptop_def _ -> Pprintast2.top_phrase ppf phr
                                | Ptop_dir _ -> ()
                                end;
   phr
