@@ -45,7 +45,7 @@ let prepare ppf =
       let objects =
         List.rev (!preload_objects @ !first_objfiles)
       in
-      List.for_all (Topdirs.load_file ppf) objects
+      List.for_all (My_topdirs.load_file ppf) objects
     in
     My_toploop.run_hooks My_toploop.Startup;
     res

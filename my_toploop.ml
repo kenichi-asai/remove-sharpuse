@@ -511,7 +511,7 @@ let refill_lexbuf buffer len =
    can call directives from Topdirs. *)
 
 let _ =
-  if !Sys.interactive then (* PR#6108 *)
+  if false (* !Sys.interactive *) then (* PR#6108 *)
     invalid_arg "The ocamltoplevel.cma library from compiler-libs \
                  cannot be loaded inside the OCaml toplevel";
   Sys.interactive := true;
