@@ -5,3 +5,7 @@
   compiler-libs
   compiler-libs.toplevel)
  (modes byte))
+
+(env
+ (dev
+  (flags (:standard -w -9))))
